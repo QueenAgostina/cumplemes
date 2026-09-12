@@ -28,100 +28,109 @@
         .pantalla {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 30px;
+            text-align: center; padding: 20px;
         }
         .activa { display: flex; }
 
         /* --- PRESENTACIÓN --- */
-        .titulo-viaje { font-size: 2.8rem; margin-bottom: 15px; color: #ffffff; font-weight: bold; }
-        .subtitulo-ready { font-size: 1.8rem; color: #b21f1f; margin-bottom: 40px; font-style: italic; }
+        .titulo-viaje { font-size: 2.2rem; margin-bottom: 15px; color: #ffffff; font-weight: bold; padding: 0 10px; }
+        .subtitulo-ready { font-size: 1.5rem; color: #b21f1f; margin-bottom: 40px; font-style: italic; }
 
         /* --- BOTONES GENERALES --- */
         .btn-principal {
-            padding: 12px 35px; font-size: 1.4rem; font-weight: bold; cursor: pointer;
+            padding: 12px 35px; font-size: 1.2rem; font-weight: bold; cursor: pointer;
             border: none; border-radius: 5px; transition: all 0.3s ease;
             background-color: #b21f1f; color: white; box-shadow: 0 4px 15px rgba(178, 31, 31, 0.4);
         }
         .btn-principal:hover { background-color: #ff4747; transform: translateY(-2px); }
 
         .btn-continuar {
-            position: absolute; bottom: 40px; right: 40px; display: none;
+            position: absolute; bottom: 30px; right: 30px;
         }
 
         /* --- TRIVIA CONTENEDOR --- */
-        .trivia-container { width: 100%; max-width: 700px; display: flex; flex-direction: column; align-items: center; }
-        .pregunta-texto { font-size: 1.8rem; margin-bottom: 40px; line-height: 1.4; color: #fff; font-weight: bold; }
-        .opciones-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 550px; }
+        .trivia-container { width: 100%; max-width: 600px; display: flex; flex-direction: column; align-items: center; }
+        .pregunta-texto { font-size: 1.4rem; margin-bottom: 30px; line-height: 1.4; color: #fff; font-weight: bold; padding: 0 10px; }
+        .opciones-container { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 500px; padding: 0 10px; }
         .btn-opcion {
             background-color: #141414; color: #f0f0f0; border: 1px solid #333; text-align: center;
-            padding: 18px 20px; border-radius: 6px; font-size: 1.15rem; cursor: pointer; transition: all 0.2s ease;
+            padding: 15px 18px; border-radius: 6px; font-size: 1.05rem; cursor: pointer; transition: all 0.2s ease;
+            line-height: 1.3;
         }
-        .btn-opcion:hover { background-color: #222; border-color: #b21f1f; transform: scale(1.02); }
+        .btn-opcion:hover { background-color: #222; border-color: #b21f1f; transform: scale(1.01); }
 
         /* --- ANIMACIÓN INTERACTIVA DEL SOBRE --- */
         .sobre-pantalla {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; align-items: center; justify-content: center; z-index: 50;
-            background: rgba(13, 13, 13, 0.95); cursor: pointer;
-            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            background: rgba(13, 13, 13, 0.96); cursor: pointer;
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
         }
         .sobre-pantalla.deslizar-izquierda {
             transform: translateX(-100%); opacity: 0;
         }
         
         .sobre-wrapper {
-            position: relative; width: 450px; height: 300px; margin-top: 100px;
+            position: relative; width: 90%; max-width: 400px; height: 350px; display: flex; justify-content: center;
         }
 
         .sobre {
-            position: absolute; bottom: 0; width: 100%; height: 220px;
+            position: absolute; bottom: 0; width: 100%; height: 180px;
             background-color: #f4f1ea; border-radius: 0 0 10px 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 5;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6); z-index: 5;
         }
         .solapa {
-            position: absolute; top: 30px; left: 0; width: 0; height: 0;
-            border-left: 225px solid transparent; border-right: 225px solid transparent;
-            border-top: 120px solid #ece7dc; transform-origin: top;
-            transition: transform 0.6s ease-in-out; z-index: 6;
+            position: absolute; bottom: 180px; left: 0; width: 0; height: 0;
+            border-left: 200px solid transparent; border-right: 200px solid transparent;
+            border-bottom: 100px solid #ece7dc; transform-origin: bottom;
+            transition: transform 0.5s ease-in-out; z-index: 6;
+        }
+        @media(max-width: 450px) {
+            .solapa { border-left-width: 180px; border-right-width: 180px; bottom: 180px; }
         }
         .sobre-abierto .solapa {
             transform: rotateX(180deg); z-index: 3;
         }
         .sello {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 50px; height: 50px; background: radial-gradient(#d63031, #7a0010);
-            border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.3); z-index: 7;
+            position: absolute; top: 85px; left: 50%; transform: translateX(-50%);
+            width: 44px; height: 44px; background: radial-gradient(#d63031, #7a0010);
+            border-radius: 50%; box-shadow: 0 3px 6px rgba(0,0,0,0.4); z-index: 7;
             transition: opacity 0.3s ease;
         }
         .sobre-abierto .sello { opacity: 0; pointer-events: none; }
 
         .pergamino {
-            position: absolute; bottom: 10px; left: 25px; width: 400px; height: 200px;
+            position: absolute; bottom: 5px; width: 92%; min-height: 160px; max-height: 240px;
             background-color: #dfd5c3; border: 2px solid #c3b59f; border-radius: 4px;
-            padding: 20px; display: flex; align-items: center; justify-content: center;
-            transition: transform 0.8s ease-in-out 0.6s, height 0.8s ease-in-out 0.6s;
-            z-index: 4; overflow: hidden;
-            box-shadow: inset 0 0 20px #5c4027, 0 4px 10px rgba(0,0,0,0.3);
+            padding: 15px; display: flex; align-items: center; justify-content: center;
+            transition: transform 0.8s ease-in-out 0.5s, height 0.8s ease-in-out 0.5s;
+            z-index: 4; overflow-y: auto;
+            box-shadow: inset 0 0 15px #5c4027, 0 4px 10px rgba(0,0,0,0.3);
         }
         .pergamino-texto {
             color: #000000; font-family: 'Courier New', Courier, monospace;
-            font-style: italic; font-weight: bold; font-size: 1.15rem; line-height: 1.4;
-            text-align: center; transform: rotate(1deg);
+            font-style: italic; font-weight: bold; font-size: 0.95rem; line-height: 1.4;
+            text-align: center; transform: rotate(0.5deg);
         }
+        /* El piropo sube por completo y se superpone enfrente del sobre */
         .sobre-abierto .pergamino {
-            transform: translateY(-160px); height: 260px;
+            transform: translateY(-130px); min-height: 260px; z-index: 8;
         }
 
         /* --- SECCIÓN MÁQUINA DE ESCRIBIR --- */
-        .pista-bloque { font-size: 2.2rem; font-weight: bold; margin-bottom: 20px; }
+        .pista-bloque { font-size: 1.6rem; font-weight: bold; margin-bottom: 20px; color: #fff; }
+        .maquina-container {
+            width: 100%; max-width: 600px; padding: 0 20px; display: flex; justify-content: center;
+        }
         .maquina-texto {
-            font-size: 1.4rem; line-height: 1.6; max-width: 650px; min-height: 120px;
-            text-align: center; color: #ffb3b3; font-family: monospace; border-left: 2px solid #b21f1f; padding-left: 10px;
+            font-size: 1.15rem; line-height: 1.5; text-align: center; color: #ffb3b3; 
+            font-family: monospace; border-left: 2px solid #b21f1f; padding-left: 12px;
+            white-space: normal; word-break: break-word; word-wrap: break-word;
         }
 
         /* --- FINAL DEL VIAJE --- */
-        .corazones-decoracion { font-size: 2.5rem; margin-top: 30px; color: #b21f1f; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .corazones-decoracion { font-size: 2rem; margin-top: 20px; color: #b21f1f; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -155,15 +164,17 @@
     <div class="pantalla" id="pantalla-pista">
         <div class="pista-bloque" id="txt-desbloqueo-titulo"></div>
         <button class="btn-principal" id="btn-pista-trigger" onclick="iniciarEfectoEscritura()"></button>
-        <div class="maquina-texto" id="txt-maquina" style="margin-top: 40px;"></div>
+        <div class="maquina-container">
+            <div class="maquina-texto" id="txt-maquina"></div>
+        </div>
         <button class="btn-principal btn-continuar" id="btn-continuar-pista" onclick="avanzarSiguienteMes()">Continuar</button>
     </div>
 
     <div class="pantalla" id="pantalla-cierre">
-        <div class="pregunta-texto" style="font-size: 1.6rem; color: #aaa;">Bueno mi amor Hemos llegado al final</div>
-        <div class="pregunta-texto" style="margin-top: 10px; font-size: 2rem;">¿Con las pistas obtenidas, lograste saber a qué hecho histórico hacemos referencia?</div>
+        <div class="pregunta-texto" style="font-size: 1.3rem; color: #aaa;">Bueno mi amor Hemos llegado al final</div>
+        <div class="pregunta-texto" style="margin-top: 10px; font-size: 1.6rem;">¿Con las pistas obtenidas, lograste saber a qué hecho histórico hacemos referencia?</div>
         <div class="corazones-decoracion">❤️❤️❤️❤️❤️❤️</div>
-        <div class="titulo-viaje" style="color: #ff4747; margin-top: 20px; font-size: 2.5rem;">¡Feliz cumple mes, preciosa! Te quiero mucho</div>
+        <div class="titulo-viaje" style="color: #ff4747; margin-top: 20px; font-size: 2rem;">¡Feliz cumple mes, preciosa! Te quiero mucho</div>
         <div class="corazones-decoracion">❤️❤️❤️❤️❤️❤️</div>
     </div>
     <script>
@@ -205,7 +216,7 @@
                     { texto: "B) La Odisea de Homero", correcta: false },
                     { texto: "C) La Biblia (de 42 líneas)", correcta: true }
                 ],
-                piropo: "Si la Imprenta revolucionó el mundo esparciendo historias, vos revolucionaste el mío esparciendo felicidad. Cada una de tus palabras se queda impresa en mi mente y multiplica mis ganas de escribir una vida entera con vos.",
+                piropo: "Si la Imprenta revolutionized el mundo esparciendo historias, vos revolucionaste el mío esparciendo felicidad. Cada una de tus palabras se queda impresa en mi mente y multiplica mis ganas de escribir una vida entera con vos.",
                 pista: "Mentes ilustres de tierras lejanas cruzaban mares solo para caminar por sus pasillos, donde el pensamiento no tenía dueño y la curiosidad era la única ley."
             },
             {
@@ -253,7 +264,7 @@
         const apodosLindos = ["mi amor", "linda", "preciosa", "bombón", "tesoro", "corazón", "cielo", "duendecito", "calabacita"];
         let mesActual = 0;
         let etapaSobre = 0;
-      function abrirTelon() {
+        function abrirTelon() {
             document.getElementById('telon').classList.add('abrir');
             setTimeout(() => { document.getElementById('telon').style.display = 'none'; }, 2000);
         }
@@ -308,8 +319,8 @@
                     setTimeout(() => {
                         pSobre.style.display = 'none';
                         configurarPantallaPista();
-                    }, 1000);
-                }, 1000);
+                    }, 800);
+                }, 800);
             }
         }
 
