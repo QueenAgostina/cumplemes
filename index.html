@@ -33,7 +33,7 @@
         .activa { display: flex; }
 
         /* --- PRESENTACIÓN --- */
-        .titulo-viaje { font-size: 2.2rem; margin-bottom: 15px; color: #ffffff; font-weight: bold; padding: 0 10px; }
+        .titulo-viaje { font-size: 2.2rem; margin-bottom: 15px; color: #ffffff; font-weight: bold; }
         .subtitulo-ready { font-size: 1.5rem; color: #b21f1f; margin-bottom: 40px; font-style: italic; }
 
         /* --- BOTONES GENERALES --- */
@@ -43,9 +43,9 @@
             background-color: #b21f1f; color: white; box-shadow: 0 4px 15px rgba(178, 31, 31, 0.4);
         }
         .btn-principal:hover { background-color: #ff4747; transform: translateY(-2px); }
-
-        .btn-continuar {
-            position: absolute; bottom: 30px; right: 30px;
+        .btn-continuar { position: absolute; bottom: 40px; right: 40px; display: none; }
+        @media (max-width: 600px) {
+            .btn-continuar { position: relative; bottom: auto; right: auto; margin-top: 20px; }
         }
 
         /* --- TRIVIA CONTENEDOR --- */
@@ -59,7 +59,7 @@
         }
         .btn-opcion:hover { background-color: #222; border-color: #b21f1f; transform: scale(1.01); }
 
-        /* --- ANIMACIÓN INTERACTIVA DEL SOBRE --- */
+        /* --- EL NUEVO SOBRE ESTILO EMOJI RECTANGULAR ✉️ --- */
         .sobre-pantalla {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; align-items: center; justify-content: center; z-index: 50;
@@ -71,61 +71,94 @@
         }
         
         .sobre-wrapper {
-            position: relative; width: 90%; max-width: 400px; height: 350px; display: flex; justify-content: center;
+            position: relative; width: 380px; height: 260px; perspective: 1000px;
+        }
+        @media(max-width: 400px) {
+            .sobre-wrapper { width: 300px; height: 205px; }
         }
 
-        .sobre {
-            position: absolute; bottom: 0; width: 100%; height: 180px;
-            background-color: #f4f1ea; border-radius: 0 0 10px 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6); z-index: 5;
+        /* Cuerpo base del sobre */
+        .sobre-base {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background-color: #ece7dc; border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 5;
+            overflow: hidden;
         }
-        .solapa {
-            position: absolute; bottom: 180px; left: 0; width: 0; height: 0;
-            border-left: 200px solid transparent; border-right: 200px solid transparent;
-            border-bottom: 100px solid #ece7dc; transform-origin: bottom;
-            transition: transform 0.5s ease-in-out; z-index: 6;
+        /* Pliegues internos decorativos del sobre (efecto ✉️) */
+        .sobre-base::before {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 0;
+            border-left: 190px solid #f4f1ea; border-right: 190px solid #f4f1ea; border-top: 130px solid transparent;
+            z-index: 5;
         }
-        @media(max-width: 450px) {
-            .solapa { border-left-width: 180px; border-right-width: 180px; bottom: 180px; }
+        @media(max-width: 400px) {
+            .sobre-base::before { border-left-width: 150px; border-right-width: 150px; border-top-width: 102px; }
         }
-        .sobre-abierto .solapa {
-            transform: rotateX(180deg); z-index: 3;
-        }
-        .sello {
-            position: absolute; top: 85px; left: 50%; transform: translateX(-50%);
-            width: 44px; height: 44px; background: radial-gradient(#d63031, #7a0010);
-            border-radius: 50%; box-shadow: 0 3px 6px rgba(0,0,0,0.4); z-index: 7;
-            transition: opacity 0.3s ease;
-        }
-        .sobre-abierto .sello { opacity: 0; pointer-events: none; }
 
-        .pergamino {
-            position: absolute; bottom: 5px; width: 92%; min-height: 160px; max-height: 240px;
-            background-color: #dfd5c3; border: 2px solid #c3b59f; border-radius: 4px;
-            padding: 15px; display: flex; align-items: center; justify-content: center;
-            transition: transform 0.8s ease-in-out 0.5s, height 0.8s ease-in-out 0.5s;
-            z-index: 4; overflow-y: auto;
-            box-shadow: inset 0 0 15px #5c4027, 0 4px 10px rgba(0,0,0,0.3);
+        /* Solapa superior que abre hacia arriba */
+        .solapa-superior {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: 190px solid transparent; border-right: 190px solid transparent;
+            border-top: 135px solid #dfd5c3;
+            transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 6;
+        }
+        @media(max-width: 400px) {
+            .solapa-superior { border-left-width: 150px; border-right-width: 150px; border-top-width: 106px; }
+        }
+        .sobre-abierto .solapa-superior {
+            transform: rotateX(180deg); z-index: 2;
+        }
+
+        /* Sello de lacre rojo en el centro exacto */
+        .sello-rojo {
+            position: absolute; top: 110px; left: 50%; transform: translate(-50%, -50%);
+            width: 46px; height: 46px; background: radial-gradient(#d63031, #7a0010);
+            border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.4); z-index: 7;
+            transition: opacity 0.2s ease, transform 0.4s ease;
+        }
+        @media(max-width: 400px) {
+            .sello-rojo { top: 88px; width: 38px; height: 38px; }
+        }
+        /* El sello se mueve con la solapa cuando se abre */
+        .sobre-abierto .sello-rojo {
+            transform: translate(-50%, -150px) rotateX(180deg); opacity: 0;
+        }
+
+        /* Carta de pergamino deslizable */
+        .pergamino-carta {
+            position: absolute; bottom: 10px; left: 5%; width: 90%; height: 85%;
+            background-color: #fcf8f2; border: 1px solid #d3c7b1; border-radius: 4px;
+            padding: 20px; display: flex; align-items: center; justify-content: center;
+            transition: transform 0.8s ease-in-out 0.4s, height 0.8s ease-in-out 0.4s;
+            z-index: 3;
+            box-shadow: inset 0 0 20px rgba(92,64,39,0.15), 0 4px 10px rgba(0,0,0,0.2);
         }
         .pergamino-texto {
-            color: #000000; font-family: 'Courier New', Courier, monospace;
-            font-style: italic; font-weight: bold; font-size: 0.95rem; line-height: 1.4;
-            text-align: center; transform: rotate(0.5deg);
+            color: #111111; font-family: 'Courier New', Courier, monospace;
+            font-style: italic; font-weight: bold; font-size: 1rem; line-height: 1.4;
+            text-align: center;
         }
-        /* El piropo sube por completo y se superpone enfrente del sobre */
-        .sobre-abierto .pergamino {
-            transform: translateY(-130px); min-height: 260px; z-index: 8;
+        @media(max-width: 400px) {
+            .pergamino-texto { font-size: 0.85rem; }
+        }
+        /* La carta sale del sobre por completo y se coloca al frente */
+        .sobre-abierto .pergamino-carta {
+            transform: translateY(-200px); height: 280px; z-index: 8;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(92,64,39,0.1);
+        }
+        @media(max-width: 400px) {
+            .sobre-abierto .pergamino-carta { transform: translateY(-150px); height: 230px; }
         }
 
-        /* --- SECCIÓN MÁQUINA DE ESCRIBIR --- */
-        .pista-bloque { font-size: 1.6rem; font-weight: bold; margin-bottom: 20px; color: #fff; }
+        /* --- CORRECCIÓN DE LA MÁQUINA DE ESCRIBIR --- */
+        .pista-bloque { font-size: 1.3rem; font-weight: normal; margin-bottom: 25px; color: #aaa; letter-spacing: 1px; }
         .maquina-container {
-            width: 100%; max-width: 600px; padding: 0 20px; display: flex; justify-content: center;
+            width: 100%; max-width: 600px; padding: 0 25px; display: flex; justify-content: center; margin-bottom: 30px;
         }
         .maquina-texto {
-            font-size: 1.15rem; line-height: 1.5; text-align: center; color: #ffb3b3; 
-            font-family: monospace; border-left: 2px solid #b21f1f; padding-left: 12px;
-            white-space: normal; word-break: break-word; word-wrap: break-word;
+            font-size: 1.25rem; line-height: 1.6; text-align: center; color: #ffb3b3; 
+            font-family: monospace; border-left: 3px solid #b21f1f; padding-left: 15px;
+            /* Fuerza a que los espacios se respeten y las palabras salten de renglón de forma rectangular */
+            white-space: pre-wrap; word-break: keep-all; display: block; width: 100%;
         }
 
         /* --- FINAL DEL VIAJE --- */
@@ -155,9 +188,10 @@
 
     <div class="sobre-pantalla" id="pantalla-sobre" onclick="manejarClickSobre()">
         <div class="sobre-wrapper">
-            <div class="solapa" id="sobre-solapa"><div class="sello"></div></div>
-            <div class="pergamino"><div class="pergamino-texto" id="txt-piropo"></div></div>
-            <div class="sobre"></div>
+            <div class="solapa-superior" id="sobre-solapa"></div>
+            <div class="sello-rojo" id="sobre-sello"></div>
+            <div class="pergamino-carta"><div class="pergamino-texto" id="txt-piropo"></div></div>
+            <div class="sobre-base"></div>
         </div>
     </div>
 
@@ -171,13 +205,13 @@
     </div>
 
     <div class="pantalla" id="pantalla-cierre">
-        <div class="pregunta-texto" style="font-size: 1.3rem; color: #aaa;">Bueno mi amor Hemos llegado al final</div>
+        <div class="pregunta-texto" style="font-size: 1.3rem; color: #aaa;">Bueno mi amor</div>
         <div class="pregunta-texto" style="margin-top: 10px; font-size: 1.6rem;">¿Con las pistas obtenidas, lograste saber a qué hecho histórico hacemos referencia?</div>
-        <div class="corazones-decoracion">❤️❤️❤️❤️❤️❤️</div>
+        <div class="corazones-decoracion">❤️</div>
         <div class="titulo-viaje" style="color: #ff4747; margin-top: 20px; font-size: 2rem;">¡Feliz cumple mes, preciosa! Te quiero mucho</div>
-        <div class="corazones-decoracion">❤️❤️❤️❤️❤️❤️</div>
+        <div class="corazones-decoracion">❤️</div>
     </div>
-    <script>
+<script>
         const juegoDatos = [
             {
                 pregunta: "¿Cuál de estos cambios fundamentales en la vida humana marcó el verdadero inicio de la Revolución Neolítica hace miles de años?",
@@ -216,7 +250,7 @@
                     { texto: "B) La Odisea de Homero", correcta: false },
                     { texto: "C) La Biblia (de 42 líneas)", correcta: true }
                 ],
-                piropo: "Si la Imprenta revolutionized el mundo esparciendo historias, vos revolucionaste el mío esparciendo felicidad. Cada una de tus palabras se queda impresa en mi mente y multiplica mis ganas de escribir una vida entera con vos.",
+                piropo: "Si la Imprenta revolucionó el mundo esparciendo historias, vos revolucionaste el mío esparciendo felicidad. Cada una de tus palabras se queda impresa en mi mente y multiplica mis ganas de escribir una vida entera con vos.",
                 pista: "Mentes ilustres de tierras lejanas cruzaban mares solo para caminar por sus pasillos, donde el pensamiento no tenía dueño y la curiosidad era la única ley."
             },
             {
@@ -230,7 +264,7 @@
                 pista: "Allí, la luz de la razón brillaba con la fuerza de un faro, desafiando a las sombras del olvido hasta convertirse en el corazón palpitante de toda una era."
             },
             {
-                pregunta: "El 25 de mayo de 1810 se formó la Primera Junta en Buenos Aires tras destituir al virrey Cisneros. ¿Quién fue elegido como el presidente de este primer gobierno patrio?",
+                pregunta: "El 25 de mayo de 1810 se formá la Primera Junta en Buenos Aires tras destituir al virrey Cisneros. ¿Quién fue elegido como el presidente de este primer gobierno patrio?",
                 opciones: [
                     { texto: "A) Mariano Moreno", correcta: false },
                     { texto: "B) Cornelio Saavedra", correcta: true },
@@ -264,7 +298,7 @@
         const apodosLindos = ["mi amor", "linda", "preciosa", "bombón", "tesoro", "corazón", "cielo", "duendecito", "calabacita"];
         let mesActual = 0;
         let etapaSobre = 0;
-        function abrirTelon() {
+    function abrirTelon() {
             document.getElementById('telon').classList.add('abrir');
             setTimeout(() => { document.getElementById('telon').style.display = 'none'; }, 2000);
         }
@@ -308,12 +342,15 @@
             const pSobre = document.getElementById('pantalla-sobre');
             
             if(etapaSobre === 0) {
+                // Al hacer click, se abre la solapa y la carta sube de inmediato
                 pSobre.classList.add('sobre-abierto');
                 etapaSobre = 1;
             } else if (etapaSobre === 1) {
+                // Al volver a hacer click, la carta baja y la solapa se cierra
                 pSobre.classList.remove('sobre-abierto');
                 etapaSobre = 2;
                 
+                // Espera a que termine de cerrarse (800ms) y desliza todo el sobre cerrado hacia la izquierda
                 setTimeout(() => {
                     pSobre.classList.add('deslizar-izquierda');
                     setTimeout(() => {
