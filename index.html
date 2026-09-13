@@ -165,17 +165,24 @@
         <div class="pista-bloque" id="txt-desbloqueo-titulo"></div>
         <button class="btn-principal" id="btn-pista-trigger" onclick="iniciarEfectoEscritura()"></button>
         <div class="maquina-container">
+           <div class="maquina-container">
             <div class="maquina-texto" id="txt-maquina"></div>
         </div>
         <button class="btn-principal btn-continuar" id="btn-continuar-pista" onclick="avanzarSiguienteMes()">Continuar</button>
     </div>
 
-    <!-- AQUÍ ESTÁ LA NUEVA PANTALLA EXCLUSIVA DEL ACERTIJO DETECTIVESCO -->
+    <!-- PANTALLA DEL ACERTIJO DETECTIVESCO -->
     <div class="pantalla" id="pantalla-acertijo-final">
         <div class="pregunta-texto" style="font-size: 1.2rem; color: #aaa; margin-bottom: 10px;">Bueno mi amor Hemos llegado al final...</div>
-        <div class="pregunta-texto" style="margin-top: 10px; font-size: 1.6rem;">¿Con las pistas obtenidas, lograste saber a qué hecho histórico hacemos referencia?</div>
+        <div class="pregunta-texto" style="font-size: 1.4rem; margin-bottom: 15px;">Con las pistas obtenidas, ¿lograste saber a qué hecho histórico hacemos referencia?</div>
+        <div class="tablero-pistas" id="tablero-evidencias"></div>
+        <div class="opciones-container" id="contenedor-opciones-misterio"></div>
+    </div>
+
+    <!-- PANTALLA DE CIERRE CELEBRACIÓN -->
+    <div class="pantalla" id="pantalla-cierre">
         <div class="corazones-decoracion">❤️</div>
-        <div class="titulo-viaje" style="color: #ff4747; margin-top: 20px; font-size: 2rem;">Feliz cumple mes, mi querida Compañera de vida, Te quiero mucho</div>
+        <div class="titulo-viaje" style="color: #ff4747; margin-top: 20px; font-size: 2.2rem;">Feliz cumple mes, mi querida compañera de vida. Te quiero mucho</div>
         <div class="corazones-decoracion">❤️</div>
     </div>
     <script>
@@ -251,14 +258,14 @@
                 pista: "Un abrazo voraz de chispas y humo ascendió hacia el cielo nocturno, devorando en pocas horas siglos de memoria y reflexiones que jamás volverían a repetirse."
             },
             {
-                pregunta: "Albert Einstein presentó su Teoría de la Relatividad General en 1915, pero el mundo de la ciencia no le creyó del todo hasta que un evento astronómico real in 1919 demostró que el espacio y el tiempo se curvaban. ¿Qué evento fue?",
+                pregunta: "Albert Einstein presentó su Teoría de la Relatividad General en 1915, pero el mundo de la ciencia no le creyó del todo hasta que un evento astronómico real en 1919 demostró que el espacio y el tiempo se curvaban. ¿Qué evento fue?",
                 opciones: [
                     { texto: "A) El paso del Cometa Halley cerca de la Tierra.", correcta: false },
                     { texto: "B) Un eclipse solar total fotografiado desde la isla de Príncipe.", correcta: true },
                     { texto: "C) Una lluvia de meteoritos inusualmente intensa en Europa.", correcta: false }
                 ],
-                piropo: "Einstein tenía razón con la Relatividad, cuando no estás, un minuto parece un siglo, pero hoy que cumplimos 8 meses juntas, el tiempo ha pasado como un parpadeo, tan rápido porque a tu lado todo es increíble ",
-                pista: "Su aliento se volvió ceniza y su eco se dispersó in el viento, dejando un vacío amargo que la historia aún lamenta como el día en que la luz del mundo perdió su mirada"
+                piropo: "Einstein tenía razón con la Relatividad, cuando no estás, un minuto parece un siglo, pero hoy que cumplimos 8 meses juntas, el tiempo ha pasado como un paraneo, tan rápido porque a tu lado todo es increíble ",
+                pista: "Su aliento se volvió ceniza y su eco se dispersó en el viento, dejando un vacío amargo que la historia aún lamenta como el día en que la luz del mundo perdió su mirada"
             }
         ];
 
@@ -310,20 +317,16 @@
             const pSobre = document.getElementById('pantalla-sobre');
             
             if(etapaSobre === 0) {
-                // Al hacer click, abre solapa y la carta vuela y se centra libre en pantalla
                 pSobre.classList.add('sobre-abierto');
                 etapaSobre = 1;
             } else if (etapaSobre === 1) {
-                // Al volver a hacer click, regresa la carta y la solapa se cierra tapándola
                 pSobre.classList.remove('sobre-abierto');
                 etapaSobre = 2;
                 
-                // Espera a que la animación de guardado termine (1000ms) y desliza el sobre hacia la izquierda
                 setTimeout(() => {
                     pSobre.classList.add('deslizar-izquierda');
                     setTimeout(() => {
                         pSobre.style.display = 'none';
-                        // Guardamos la pista en el tablero de evidencias
                         pistasRecolectadas.push(juegoDatos[mesActual].pista);
                         configurarPantallaPista();
                     }, 800);
@@ -374,7 +377,6 @@
             const tablero = document.getElementById('tablero-evidencias');
             tablero.innerHTML = '';
             
-            // Rellena el tablero con todas las evidencias recolectadas
             pistasRecolectadas.forEach((pista, idx) => {
                 const div = document.createElement('div');
                 div.className = 'pista-evidencia';
@@ -402,14 +404,10 @@
                         alert("Esa opción no coincide con las evidencias recopiladas... ¡Examina bien el tablero, detective! 🔎🕵️‍♂️");
                     }
                 };
-                container_append(contenedorOpciones, btn);
+                contenedorOpciones.appendChild(btn);
             });
 
             irAPantalla('pantalla-acertijo-final');
-        }
-
-        function container_append(container, element) {
-            container.appendChild(element);
         }
     </script>
 </body>
