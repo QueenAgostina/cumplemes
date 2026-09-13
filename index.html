@@ -59,107 +59,73 @@
         }
         .btn-opcion:hover { background-color: #222; border-color: #b21f1f; transform: scale(1.01); }
 
-        /* --- EL NUEVO SOBRE ESTILO EMOJI RECTANGULAR ✉️ --- */
+        /* --- PANTALLA INTERACTIVA DEL SOBRE --- */
         .sobre-pantalla {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; align-items: center; justify-content: center; z-index: 50;
             background: rgba(13, 13, 13, 0.96); cursor: pointer;
             transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
         }
-        .sobre-pantalla.deslizar-izquierda {
-            transform: translateX(-100%); opacity: 0;
-        }
-        
-        .sobre-wrapper {
-            position: relative; width: 380px; height: 260px; perspective: 1000px;
-        }
-        @media(max-width: 400px) {
-            .sobre-wrapper { width: 300px; height: 205px; }
-        }
+        .sobre-pantalla.deslizar-izquierda { transform: translateX(-100%); opacity: 0; }
+        .sobre-wrapper { position: relative; width: 380px; height: 260px; perspective: 1000px; }
+        @media(max-width: 400px) { .sobre-wrapper { width: 300px; height: 205px; } }
 
-        /* Cuerpo base del sobre */
         .sobre-base {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
-            background-color: #ece7dc; border-radius: 6px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 5;
-            overflow: hidden;
+            background-color: #ece7dc; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 5; overflow: hidden;
         }
-        /* Pliegues internos decorativos del sobre (efecto ✉️) */
         .sobre-base::before {
             content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 0;
-            border-left: 190px solid #f4f1ea; border-right: 190px solid #f4f1ea; border-top: 130px solid transparent;
-            z-index: 5;
+            border-left: 190px solid #f4f1ea; border-right: 190px solid #f4f1ea; border-top: 130px solid transparent; z-index: 5;
         }
-        @media(max-width: 400px) {
-            .sobre-base::before { border-left-width: 150px; border-right-width: 150px; border-top-width: 102px; }
-        }
+        @media(max-width: 400px) { .sobre-base::before { border-left-width: 150px; border-right-width: 150px; border-top-width: 102px; } }
 
-        /* Solapa superior que abre hacia arriba */
         .solapa-superior {
             position: absolute; top: 0; left: 0; width: 0; height: 0;
-            border-left: 190px solid transparent; border-right: 190px solid transparent;
-            border-top: 135px solid #dfd5c3;
+            border-left: 190px solid transparent; border-right: 190px solid transparent; border-top: 135px solid #dfd5c3;
             transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 6;
         }
-        @media(max-width: 400px) {
-            .solapa-superior { border-left-width: 150px; border-right-width: 150px; border-top-width: 106px; }
-        }
-        .sobre-abierto .solapa-superior {
-            transform: rotateX(180deg); z-index: 2;
-        }
+        @media(max-width: 400px) { .solapa-superior { border-left-width: 150px; border-right-width: 150px; border-top-width: 106px; } }
+        .sobre-abierto .solapa-superior { transform: rotateX(180deg); z-index: 2; }
 
-        /* Sello de lacre rojo en el centro exacto */
         .sello-rojo {
             position: absolute; top: 110px; left: 50%; transform: translate(-50%, -50%);
             width: 46px; height: 46px; background: radial-gradient(#d63031, #7a0010);
             border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.4); z-index: 7;
             transition: opacity 0.2s ease, transform 0.4s ease;
         }
-        @media(max-width: 400px) {
-            .sello-rojo { top: 88px; width: 38px; height: 38px; }
-        }
-        /* El sello se mueve con la solapa cuando se abre */
-        .sobre-abierto .sello-rojo {
-            transform: translate(-50%, -150px) rotateX(180deg); opacity: 0;
-        }
+        @media(max-width: 400px) { .sello-rojo { top: 88px; width: 38px; height: 38px; } }
+        .sobre-abierto .sello-rojo { transform: translate(-50%, -150px) rotateX(180deg); opacity: 0; }
 
-        /* Carta de pergamino deslizable */
         .pergamino-carta {
             position: absolute; bottom: 10px; left: 5%; width: 90%; height: 85%;
-            background-color: #fcf8f2; border: 1px solid #d3c7b1; border-radius: 4px;
-            padding: 20px; display: flex; align-items: center; justify-content: center;
-            transition: transform 0.8s ease-in-out 0.4s, height 0.8s ease-in-out 0.4s;
-            z-index: 3;
+            background-color: #fcf8f2; border: 1px solid #d3c7b1; border-radius: 6px; padding: 25px; display: flex; align-items: center; justify-content: center; z-index: 3;
             box-shadow: inset 0 0 20px rgba(92,64,39,0.15), 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), width 1s cubic-bezier(0.25, 1, 0.5, 1), height 1s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s linear 0.4s;
         }
-        .pergamino-texto {
-            color: #111111; font-family: 'Courier New', Courier, monospace;
-            font-style: italic; font-weight: bold; font-size: 1rem; line-height: 1.4;
-            text-align: center;
-        }
-        @media(max-width: 400px) {
-            .pergamino-texto { font-size: 0.85rem; }
-        }
-        /* La carta sale del sobre por completo y se coloca al frente */
+        .pergamino-texto { color: #111111; font-family: 'Courier New', Courier, monospace; font-style: italic; font-weight: bold; font-size: 1rem; line-height: 1.5; text-align: center; }
+        @media(max-width: 400px) { .pergamino-texto { font-size: 0.85rem; } }
+        
         .sobre-abierto .pergamino-carta {
-            transform: translateY(-200px); height: 280px; z-index: 8;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(92,64,39,0.1);
+            z-index: 80; position: fixed; top: 50%; left: 50%; width: 90vw; max-width: 500px; height: 60vh; max-height: 400px; transform: translate(-50%, -50%);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 25px rgba(92,64,39,0.12);
         }
-        @media(max-width: 400px) {
-            .sobre-abierto .pergamino-carta { transform: translateY(-150px); height: 230px; }
-        }
+        @media(max-width: 400px) { .sobre-abierto .pergamino-carta { transform: translate(-50%, -50%); } }
 
-        /* --- CORRECCIÓN DE LA MÁQUINA DE ESCRIBIR --- */
+        /* --- MÁQUINA DE ESCRIBIR --- */
         .pista-bloque { font-size: 1.3rem; font-weight: normal; margin-bottom: 25px; color: #aaa; letter-spacing: 1px; }
-        .maquina-container {
-            width: 100%; max-width: 600px; padding: 0 25px; display: flex; justify-content: center; margin-bottom: 30px;
-        }
+        .maquina-container { width: 100%; max-width: 600px; padding: 0 25px; display: flex; justify-content: center; margin-bottom: 30px; }
         .maquina-texto {
-            font-size: 1.25rem; line-height: 1.6; text-align: center; color: #ffb3b3; 
-            font-family: monospace; border-left: 3px solid #b21f1f; padding-left: 15px;
-            /* Fuerza a que los espacios se respeten y las palabras salten de renglón de forma rectangular */
+            font-size: 1.25rem; line-height: 1.6; text-align: center; color: #ffb3b3; font-family: monospace; border-left: 3px solid #b21f1f; padding-left: 15px;
             white-space: pre-wrap; word-break: keep-all; display: block; width: 100%;
         }
+
+        /* --- TABLERO EVIDENCIAS FINALES --- */
+        .tablero-pistas {
+            display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 600px; max-height: 35vh;
+            overflow-y: auto; background: #111; border: 1px dashed #333; padding: 10px; margin-bottom: 20px; border-radius: 5px;
+        }
+        .pista-evidencia { font-size: 0.9rem; text-align: left; color: #ffb3b3; line-height: 1.4; border-left: 2px solid #b21f1f; padding-left: 8px; }
 
         /* --- FINAL DEL VIAJE --- */
         .corazones-decoracion { font-size: 2rem; margin-top: 20px; color: #b21f1f; animation: pulse 1.5s infinite; }
@@ -204,14 +170,15 @@
         <button class="btn-principal btn-continuar" id="btn-continuar-pista" onclick="avanzarSiguienteMes()">Continuar</button>
     </div>
 
-    <div class="pantalla" id="pantalla-cierre">
-        <div class="pregunta-texto" style="font-size: 1.3rem; color: #aaa;">Bueno mi amor</div>
+    <!-- AQUÍ ESTÁ LA NUEVA PANTALLA EXCLUSIVA DEL ACERTIJO DETECTIVESCO -->
+    <div class="pantalla" id="pantalla-acertijo-final">
+        <div class="pregunta-texto" style="font-size: 1.2rem; color: #aaa; margin-bottom: 10px;">Bueno mi amor Hemos llegado al final...</div>
         <div class="pregunta-texto" style="margin-top: 10px; font-size: 1.6rem;">¿Con las pistas obtenidas, lograste saber a qué hecho histórico hacemos referencia?</div>
         <div class="corazones-decoracion">❤️</div>
-        <div class="titulo-viaje" style="color: #ff4747; margin-top: 20px; font-size: 2rem;">¡Feliz cumple mes, preciosa! Te quiero mucho</div>
+        <div class="titulo-viaje" style="color: #ff4747; margin-top: 20px; font-size: 2rem;">Feliz cumple mes, mi querida Compañera de vida, Te quiero mucho</div>
         <div class="corazones-decoracion">❤️</div>
     </div>
-<script>
+    <script>
         const juegoDatos = [
             {
                 pregunta: "¿Cuál de estos cambios fundamentales en la vida humana marcó el verdadero inicio de la Revolución Neolítica hace miles de años?",
@@ -264,7 +231,7 @@
                 pista: "Allí, la luz de la razón brillaba con la fuerza de un faro, desafiando a las sombras del olvido hasta convertirse en el corazón palpitante de toda una era."
             },
             {
-                pregunta: "El 25 de mayo de 1810 se formá la Primera Junta en Buenos Aires tras destituir al virrey Cisneros. ¿Quién fue elegido como el presidente de este primer gobierno patrio?",
+                pregunta: "El 25 de mayo de 1810 se formó la Primera Junta en Buenos Aires tras destituir al virrey Cisneros. ¿Quién fue elegido como el presidente de este primer gobierno patrio?",
                 opciones: [
                     { texto: "A) Mariano Moreno", correcta: false },
                     { texto: "B) Cornelio Saavedra", correcta: true },
@@ -284,21 +251,22 @@
                 pista: "Un abrazo voraz de chispas y humo ascendió hacia el cielo nocturno, devorando en pocas horas siglos de memoria y reflexiones que jamás volverían a repetirse."
             },
             {
-                pregunta: "Albert Einstein presentó su Teoría de la Relatividad General en 1915, pero el mundo de la ciencia no le creyó del todo hasta que un evento astronómico real en 1919 demostró que el espacio y el tiempo se curvaban. ¿Qué evento fue?",
+                pregunta: "Albert Einstein presentó su Teoría de la Relatividad General en 1915, pero el mundo de la ciencia no le creyó del todo hasta que un evento astronómico real in 1919 demostró que el espacio y el tiempo se curvaban. ¿Qué evento fue?",
                 opciones: [
                     { texto: "A) El paso del Cometa Halley cerca de la Tierra.", correcta: false },
                     { texto: "B) Un eclipse solar total fotografiado desde la isla de Príncipe.", correcta: true },
                     { texto: "C) Una lluvia de meteoritos inusualmente intensa en Europa.", correcta: false }
                 ],
-                piropo: "Einstein tenía razón con la Relatividad, cuando no estás, un minuto parece un siglo, pero hoy que cumplimos 8 meses juntas, el tiempo ha pasado como un paraneo, tan rápido porque a tu lado todo es increíble ",
-                pista: "Su aliento se volvió ceniza y su eco se dispersó en el viento, dejando un vacío amargo que la historia aún lamenta como el día en que la luz del mundo perdió su mirada"
+                piropo: "Einstein tenía razón con la Relatividad, cuando no estás, un minuto parece un siglo, pero hoy que cumplimos 8 meses juntas, el tiempo ha pasado como un parpadeo, tan rápido porque a tu lado todo es increíble ",
+                pista: "Su aliento se volvió ceniza y su eco se dispersó in el viento, dejando un vacío amargo que la historia aún lamenta como el día en que la luz del mundo perdió su mirada"
             }
         ];
 
         const apodosLindos = ["mi amor", "linda", "preciosa", "bombón", "tesoro", "corazón", "cielo", "duendecito", "calabacita"];
         let mesActual = 0;
         let etapaSobre = 0;
-    function abrirTelon() {
+        let pistasRecolectadas = [];
+        function abrirTelon() {
             document.getElementById('telon').classList.add('abrir');
             setTimeout(() => { document.getElementById('telon').style.display = 'none'; }, 2000);
         }
@@ -342,22 +310,24 @@
             const pSobre = document.getElementById('pantalla-sobre');
             
             if(etapaSobre === 0) {
-                // Al hacer click, se abre la solapa y la carta sube de inmediato
+                // Al hacer click, abre solapa y la carta vuela y se centra libre en pantalla
                 pSobre.classList.add('sobre-abierto');
                 etapaSobre = 1;
             } else if (etapaSobre === 1) {
-                // Al volver a hacer click, la carta baja y la solapa se cierra
+                // Al volver a hacer click, regresa la carta y la solapa se cierra tapándola
                 pSobre.classList.remove('sobre-abierto');
                 etapaSobre = 2;
                 
-                // Espera a que termine de cerrarse (800ms) y desliza todo el sobre cerrado hacia la izquierda
+                // Espera a que la animación de guardado termine (1000ms) y desliza el sobre hacia la izquierda
                 setTimeout(() => {
                     pSobre.classList.add('deslizar-izquierda');
                     setTimeout(() => {
                         pSobre.style.display = 'none';
+                        // Guardamos la pista en el tablero de evidencias
+                        pistasRecolectadas.push(juegoDatos[mesActual].pista);
                         configurarPantallaPista();
                     }, 800);
-                }, 800);
+                }, 1000);
             }
         }
 
@@ -396,8 +366,50 @@
                 mesActual++;
                 irAPantalla('pantalla-trivia');
             } else {
-                irAPantalla('pantalla-cierre');
+                montarMisterioFinal();
             }
+        }
+
+        function montarMisterioFinal() {
+            const tablero = document.getElementById('tablero-evidencias');
+            tablero.innerHTML = '';
+            
+            // Rellena el tablero con todas las evidencias recolectadas
+            pistasRecolectadas.forEach((pista, idx) => {
+                const div = document.createElement('div');
+                div.className = 'pista-evidencia';
+                div.innerHTML = `<strong>Evidencia ${idx + 1}:</strong> ${pista}`;
+                tablero.appendChild(div);
+            });
+
+            const contenedorOpciones = document.getElementById('contenedor-opciones-misterio');
+            contenedorOpciones.innerHTML = '';
+
+            const opcionesFinales = [
+                { texto: "A) La caída del Imperio Romano de Occidente.", correcta: false },
+                { texto: "B) El gran incendio de la Biblioteca de Alejandría.", correcta: true },
+                { texto: "C) El trágico naufragio del Titanic en el Atlántico.", correcta: false }
+            ];
+
+            opcionesFinales.forEach(opc => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-opcion';
+                btn.innerText = opc.texto;
+                btn.onclick = () => {
+                    if(opc.correcta) {
+                        irAPantalla('pantalla-cierre');
+                    } else {
+                        alert("Esa opción no coincide con las evidencias recopiladas... ¡Examina bien el tablero, detective! 🔎🕵️‍♂️");
+                    }
+                };
+                container_append(contenedorOpciones, btn);
+            });
+
+            irAPantalla('pantalla-acertijo-final');
+        }
+
+        function container_append(container, element) {
+            container.appendChild(element);
         }
     </script>
 </body>
